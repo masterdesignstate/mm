@@ -1,0 +1,181 @@
+{
+  "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [
+    "/build/assets/Tanker-Regular-rurXBQqR.woff2",
+    "/build/assets/Tanker-Regular-BSKOnb8p.woff",
+    "/build/assets/Tanker-Regular-DUG4p9Jo.ttf"
+  ],
+  "public/img/Grid.png": [
+    "/build/assets/Grid-pbLu9vEv.js",
+    "/build/assets/Grid-DkkGHMku.png"
+  ],
+  "public/img/white-background.png": [
+    "/build/assets/GuestLayout-C_qIVlTu.js",
+    "/build/assets/white-background-uc1-yU4R.png"
+  ],
+  "resources/css/app.css": [
+    "/build/assets/Tanker-Regular-rurXBQqR.woff2",
+    "/build/assets/Tanker-Regular-BSKOnb8p.woff",
+    "/build/assets/Tanker-Regular-DUG4p9Jo.ttf"
+  ],
+  "resources/js/Components/ApplicationLogo.jsx": [
+    "/build/assets/ApplicationLogo-BiY3mFu2.js"
+  ],
+  "resources/js/Components/Blog/BlogCard.jsx": [
+    "/build/assets/Blog-Dk4PJfRN.js"
+  ],
+  "resources/js/Components/Checkbox.jsx": [
+    "/build/assets/Login-C5y1hmaF.js"
+  ],
+  "resources/js/Components/DangerButton.jsx": [
+    "/build/assets/DeleteUserForm-11aivKpd.js"
+  ],
+  "resources/js/Components/Dropdown.jsx": [
+    "/build/assets/Dropdown-BfUgSuEe.js"
+  ],
+  "resources/js/Components/InputError.jsx": [
+    "/build/assets/InputError-2JjWc6nJ.js"
+  ],
+  "resources/js/Components/InputLabel.jsx": [
+    "/build/assets/InputLabel-DDs2XNYP.js"
+  ],
+  "resources/js/Components/Modal.jsx": [
+    "/build/assets/DeleteUserForm-11aivKpd.js"
+  ],
+  "resources/js/Components/NavLink.jsx": [
+    "/build/assets/AuthenticatedLayout-B89jR5wg.js"
+  ],
+  "resources/js/Components/PrimaryButton.jsx": [
+    "/build/assets/PrimaryButton-DDF1xnxF.js"
+  ],
+  "resources/js/Components/ResponsiveNavLink.jsx": [
+    "/build/assets/AuthenticatedLayout-B89jR5wg.js"
+  ],
+  "resources/js/Components/SecondaryButton.jsx": [
+    "/build/assets/DeleteUserForm-11aivKpd.js"
+  ],
+  "resources/js/Components/Shared/Footer.jsx": [
+    "/build/assets/Footer-CXNlU36s.js"
+  ],
+  "resources/js/Components/Shared/Header.jsx": [
+    "/build/assets/Header-BGDA6pVl.js"
+  ],
+  "resources/js/Components/Shared/PageHead.jsx": [
+    "/build/assets/PageHead-CD_eXurH.js"
+  ],
+  "resources/js/Components/Shared/ProfileAttribute.jsx": [
+    "/build/assets/MyProfile-C6zBmjS0.js",
+    "/build/assets/filepond-plugin-image-preview-DNZsnRVD.css"
+  ],
+  "resources/js/Components/TextArea.jsx": [
+    "/build/assets/TextArea-DD9TRCA-.js"
+  ],
+  "resources/js/Components/TextInput.jsx": [
+    "/build/assets/TextInput-DHOftoRI.js"
+  ],
+  "resources/js/Components/Tos/Term.jsx": [
+    "/build/assets/Tos-Cn6jRVRv.js"
+  ],
+  "resources/js/Components/ui/sheet.jsx": [
+    "/build/assets/AuthenticatedLayout-B89jR5wg.js"
+  ],
+  "resources/js/Components/ui/table.jsx": [
+    "/build/assets/MyQuestions-EV_L0flD.js"
+  ],
+  "resources/js/Layouts/AuthenticatedLayout.jsx": [
+    "/build/assets/AuthenticatedLayout-B89jR5wg.js"
+  ],
+  "resources/js/Layouts/GuestLayout.jsx": [
+    "/build/assets/GuestLayout-C_qIVlTu.js",
+    "/build/assets/white-background-uc1-yU4R.png"
+  ],
+  "resources/js/Pages/About.jsx": [
+    "/build/assets/About-D89fCBDZ.js"
+  ],
+  "resources/js/Pages/AllQuestions.jsx": [
+    "/build/assets/AllQuestions-Bijvol-g.js"
+  ],
+  "resources/js/Pages/Auth/ConfirmPassword.jsx": [
+    "/build/assets/ConfirmPassword-BCtfE48o.js"
+  ],
+  "resources/js/Pages/Auth/ForgotPassword.jsx": [
+    "/build/assets/ForgotPassword-Diu8wTCj.js"
+  ],
+  "resources/js/Pages/Auth/Login.jsx": [
+    "/build/assets/Login-C5y1hmaF.js"
+  ],
+  "resources/js/Pages/Auth/Register.jsx": [
+    "/build/assets/Register-Dta0pSd6.js"
+  ],
+  "resources/js/Pages/Auth/ResetPassword.jsx": [
+    "/build/assets/ResetPassword-P3DA9o9X.js"
+  ],
+  "resources/js/Pages/Auth/VerifyEmail.jsx": [
+    "/build/assets/VerifyEmail-RGd9OGtC.js"
+  ],
+  "resources/js/Pages/Blog.jsx": [
+    "/build/assets/Blog-Dk4PJfRN.js"
+  ],
+  "resources/js/Pages/Chat.jsx": [
+    "/build/assets/Chat-BDDWRWpJ.js"
+  ],
+  "resources/js/Pages/Dashboard.jsx": [
+    "/build/assets/Dashboard-DE4pt_PB.js"
+  ],
+  "resources/js/Pages/Home.jsx": [
+    "/build/assets/Home-2tR-9j6n.js"
+  ],
+  "resources/js/Pages/MandatoryQuestions.jsx": [
+    "/build/assets/MandatoryQuestions-DNhWCU1v.js"
+  ],
+  "resources/js/Pages/MyProfile.jsx": [
+    "/build/assets/MyProfile-C6zBmjS0.js",
+    "/build/assets/filepond-plugin-image-preview-DNZsnRVD.css"
+  ],
+  "resources/js/Pages/MyQuestions.jsx": [
+    "/build/assets/MyQuestions-EV_L0flD.js"
+  ],
+  "resources/js/Pages/OnBoarding.jsx": [
+    "/build/assets/OnBoarding-CEPijTBk.js",
+    "/build/assets/filepond-plugin-image-preview-DNZsnRVD.css"
+  ],
+  "resources/js/Pages/PotentialMatches.jsx": [
+    "/build/assets/PotentialMatches-D7w6DqW_.js"
+  ],
+  "resources/js/Pages/Profile/Edit.jsx": [
+    "/build/assets/Edit-BHQ5d-BY.js"
+  ],
+  "resources/js/Pages/Profile/Partials/DeleteUserForm.jsx": [
+    "/build/assets/DeleteUserForm-11aivKpd.js"
+  ],
+  "resources/js/Pages/Profile/Partials/UpdatePasswordForm.jsx": [
+    "/build/assets/UpdatePasswordForm-D9e74OCq.js"
+  ],
+  "resources/js/Pages/Profile/Partials/UpdateProfileInformationForm.jsx": [
+    "/build/assets/UpdateProfileInformationForm-DFqdHEkq.js"
+  ],
+  "resources/js/Pages/Questions.jsx": [
+    "/build/assets/Questions-8VpASfCb.js"
+  ],
+  "resources/js/Pages/SingleAnswer.jsx": [
+    "/build/assets/SingleAnswer-CH6bEboq.js"
+  ],
+  "resources/js/Pages/Tos.jsx": [
+    "/build/assets/Tos-Cn6jRVRv.js"
+  ],
+  "resources/js/Pages/Welcome.jsx": [
+    "/build/assets/Welcome-ByNhCfvu.js"
+  ],
+  "resources/js/app.jsx": [
+    "/build/assets/Tanker-Regular-rurXBQqR.woff2",
+    "/build/assets/Tanker-Regular-BSKOnb8p.woff",
+    "/build/assets/Tanker-Regular-DUG4p9Jo.ttf"
+  ],
+  "resources/js/bootstrap.js": [
+    "/build/assets/Tanker-Regular-rurXBQqR.woff2",
+    "/build/assets/Tanker-Regular-BSKOnb8p.woff",
+    "/build/assets/Tanker-Regular-DUG4p9Jo.ttf"
+  ],
+  "resources/js/lib/utils.js": [
+    "/build/assets/AuthenticatedLayout-B89jR5wg.js"
+  ]
+}

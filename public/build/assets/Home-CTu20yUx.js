@@ -1,0 +1,1 @@
+import{j as e,L as s,$ as t}from"./app-DWVwFx0H.js";function r(){return e.jsxs(e.Fragment,{children:[e.jsx(s,{title:"Home"}),e.jsxs("div",{className:"bg-[#100336] text-white w-screen h-screen flex items-center justify-center",children:["Coming Soon",e.jsx("div",{children:e.jsx(t,{href:route("login"),children:"Login"})})]})]})}export{r as default};
