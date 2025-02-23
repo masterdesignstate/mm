@@ -23,7 +23,15 @@ class UserResource extends Resource
 
     protected static ?string $slug = 'users';
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?int $navigationSort = 5;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return User::where('is_new', true)->count() ?: null;
+    }
+
 
     public static function form(Form $form): Form
     {
@@ -76,7 +84,7 @@ class UserResource extends Resource
             ->actions([
                 Impersonate::make(),
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()->iconButton(),
             ]);
     }
 
@@ -89,10 +97,6 @@ class UserResource extends Resource
         return false;
     }
 
-    public static function canDelete(Model $record): bool
-    {
-        return false;
-    }
 
     public static function getPages(): array
     {

@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo((fn () => view('components.logo')))
             ->darkModeBrandLogo((fn () => view('components.dark-logo')))
             ->globalSearch(false)
+//            ->spa()
             ->default()
             ->id('admin')
             ->path('admin')
@@ -34,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Purple,
             ])
             ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

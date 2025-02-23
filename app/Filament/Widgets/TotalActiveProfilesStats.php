@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Profile;
+use App\Models\ProfileResponse;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -21,7 +22,7 @@ class TotalActiveProfilesStats extends BaseWidget
                             ->get()->count();
         $profilesCreated = Profile::whereBetween('created_at', [now()->subDays(30), now()])
                             ->get()->count();
-        ray($profilesActive);
+        $profileResponse = ProfileResponse::where('response','positive')->count();
 
         return [
             Stat::make('Total Active Profiles', $profilesActive)
@@ -34,7 +35,8 @@ class TotalActiveProfilesStats extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([2, 2])
                 ->color('danger'),
-            Stat::make('New Matches Created', '0')
+
+            Stat::make('New Matches Created', $profileResponse)
                 ->description('0% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([2, 2, 2])

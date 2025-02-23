@@ -1,145 +1,226 @@
-import {Head, Link} from '@inertiajs/react';
+import { Head, Link } from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo.jsx";
 import Term from "@/Components/Tos/Term.jsx";
-import {Facebook01Icon, InstagramIcon, YoutubeIcon} from "@hugeicons/react";
+import { Facebook01Icon, InstagramIcon, YoutubeIcon } from "@hugeicons/react";
 import NavLink from "@/Components/NavLink.jsx";
 import Header from "@/Components/Shared/Header.jsx";
 import Footer from "@/Components/Shared/Footer.jsx";
+import darkGrid from "../../../public/img/dark-grid.png";
+import grid from "../../../public/img/Grid.png";
 
 const footMenu = [
     {
-        title: 'About', link: route('about')
+        title: "About",
+        link: route("about"),
     },
 
     {
-        title: 'Terms Of Service', link: route('tos')
+        title: "Terms Of Service",
+        link: route("tos"),
     },
     {
-        title: 'Blog', link: route('blog')
+        title: "Blog",
+        link: route("blog"),
     },
-]
+];
 export default function Tos() {
-
+    const isDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+    ).matches;
+    let bgGrid;
+    if (isDarkMode) {
+        bgGrid = darkGrid;
+    } else {
+        bgGrid = grid;
+        // console.log("Light mode is enabled");
+    }
     return (
         <>
-            <Head title="Terms of Service"/>
-            <Header/>
-            <section className="max-w-7xl px-4 lg:px-0 mx-auto">
-                <h1 className="font-head font-black text-7xl text-center uppercase text-bpurple-600 pt-16">Terms of service</h1>
-                <p className="max-w-3xl mx-auto text-center text-xl mt-4">Welcome to Matchmatical, a platform designed
-                    to help users find meaningful connections through compatibility-based matchmaking. By using the
-                    Matchmatical app or website, you agree to the following Terms of Service. Please read these terms
-                    carefully before using our services.</p>
+            <Head title="Terms of Service" />
+            <Header />
+            <section
+                className="text-white dark:bg-bc-900"
+                style={{ backgroundImage: `url(${bgGrid})` }}
+            >
+                <div className="mx-auto max-w-7xl px-4 lg:px-0">
+                    <h1 className="pt-16 text-center font-head text-7xl font-medium uppercase text-bc-600 dark:text-white">
+                        Terms of service
+                    </h1>
+                    <p className="mx-auto mt-4 max-w-3xl text-center text-xl text-black dark:tex">
+                        Welcome to Matchmatical, a platform designed to help
+                        users find meaningful connections through
+                        compatibility-based matchmaking. By using the
+                        Matchmatical app or website, you agree to the following
+                        Terms of Service. Please read these terms carefully
+                        before using our services.
+                    </p>
+                </div>
             </section>
-            <section className="space-y-8 px-4 lg:px-0 max-w-7xl mx-auto">
-                <Term className="mt-8" heading="1. Acceptance of Terms">
-                    By accessing or using Matchmatical, you confirm that you have read, understood, and agree to be
-                    bound by these Terms of Service. If you do not agree, you must stop using the platform immediately.
-                </Term>
-                <Term className="mt-8" heading="2. Eligibility">
-                    To use Matchmatical, you must:
-                    <ul className="list-disc ml-8">
-                        <li>
-                            Be at least 18 years old.
+            <section
+                className="text-white dark:bg-bc-900"
+                style={{ backgroundImage: `url(${bgGrid})` }}
+            >
+                <div className="">
+                    <div className="mx-auto max-w-7xl space-y-8 px-4 lg:px-0">
+                        <Term className="pt-8" heading="1. Definitions">
+                            Matchmatical: Our online dating platform that
+                            connects individuals based on compatibility and
+                            shared interests. <br />
+                            You/User: Any individual using Matchmatical. <br />
+                            Using Matchmatical: Accessing, interacting with, or
+                            engaging in any activity on the platform.
+                        </Term>
 
-                        </li>
-                        <li>
-                            Reside in the United States.
+                        <Term
+                            className="mt-8"
+                            heading="2.  Acceptance of Terms"
+                        >
+                            By using Matchmatical, you confirm that you have
+                            read, understood, and agree to be bound by these
+                            Terms of Service.
+                        </Term>
+                        <Term className="mt-8" heading="3. Eligibility">
+                            To use Matchmatical, you must:
+                            <ul className="ml-8 list-disc">
+                                <li>Be at least 18 years old.</li>
+                                <li>Reside in the United States.</li>
+                            </ul>
+                        </Term>
+                        <Term
+                            className="mt-8"
+                            heading="4. Account Registration"
+                        >
+                            When you create an account, you agree to:
+                            <ul className="ml-8 list-disc">
+                                <li>
+                                    Provide accurate information, including your
+                                    name, age, gender, and location.
+                                </li>
+                                <li>
+                                    Keep your login credentials confidential.
+                                </li>
+                                <li>
+                                    Notify us immediately at the email address
+                                    below if you suspect unauthorized use of
+                                    your account
+                                </li>
+                            </ul>
+                            You are responsible for all activity that occurs
+                            under your account.
+                        </Term>
+                        <Term
+                            heading="5. Prohibited Conduct
+"
+                        >
+                            While using Matchmatical, you agree NOT to:
+                            <ul className="ml-8 list-disc">
+                                <li>
+                                    Impersonate another person or misrepresent
+                                    yourself
+                                </li>
+                                <li>
+                                    Post or share unlawful, abusive, obscene, or
+                                    harmful content
+                                </li>
+                                <li>Harass, bully, or threaten other users</li>
+                                <li>
+                                    Use Matchmatical for commercial purposes
+                                </li>
+                                <li>
+                                    Access or attempt to access another's
+                                    account
+                                </li>
+                                <li>
+                                    Use Matchmatical in a way that violates any
+                                    applicable law or regulation
+                                </li>
+                            </ul>
+                            Violation of these rules may result in suspension or
+                            termination of your account, at the discretion of
+                            Matchmatical's administrators.
+                        </Term>
+                        <Term heading="6.  Intended Use">
+                            All results generated by Matchmatical are intended
+                            for informational and entertainment purposes only.
+                            These results do not constitute any form of
+                            professional advice, and Matchmatical makes no
+                            guarantees regarding outcomes or user compatibility.
+                        </Term>
+                        <Term
+                            heading="7. Content Ownership
+"
+                        >
+                            <ul>
+                                <li>
+                                    Your Content: You retain ownership of any
+                                    content you share on Matchmatical. By
+                                    sharing this content, you grant Matchmatical
+                                    a non-exclusive, worldwide, royalty-free
+                                    license to use it.
+                                </li>
+                                <li>
+                                    Our Content: Matchmatical owns all rights to
+                                    the platform's design, features, algorithms,
+                                    and branding. You may not copy, modify, or
+                                    distribute our content without prior written
+                                    permission.
+                                </li>
+                            </ul>
+                        </Term>
+                        <Term heading="8. Privacy">
+                            All information provided during your use of
+                            Matchmatical is protected and will not be sold or
+                            shared with any third party without your explicit
+                            consent, except as required by law.
+                        </Term>
+                        <Term heading="9. Disclaimer">
+                            Matchmatical expressly makes no guarantees or
+                            warranties regarding the accuracy, reliability, or
+                            completeness of results. Matchmatical expressly
+                            disclaims all liability for any actions taken by you
+                            or others based on these results.
+                        </Term>
+                        <Term heading="10. Assumption of Risk">
+                            You acknowledge and accept that your use of
+                            Matchmatical may involve inherent risks, including
+                            but not limited to, emotional or psychological harm.
+                            You agree to assume full responsibility for these
+                            risks and for your own safety and well-being.
+                        </Term>
 
-                        </li>
-                        <li>
-                            Create an account with accurate and truthful information.
+                        <Term heading="11. Waiver and Indemnification">
+                            To the maximum extent permitted by applicable law,
+                            you waive, release, and discharge Matchmatical and
+                            its affiliates from any claims or liabilities
+                            arising from your use of Matchmatical. You also
+                            agree to indemnify and defend Matchmatical and its
+                            affiliates against such claims or liabilities,
+                            including any attorneys' fees.
+                        </Term>
 
-                        </li>
-                    </ul>
-                    Matchmatical reserves the right to terminate accounts that violate these eligibility requirements.
-                </Term>
-                <Term className="mt-8" heading="3. Account Registration">
-                    When you create an account, you agree to:
-                    <ul className="list-disc ml-8">
-                        <li>
-                            Provide accurate information, including your name, age, gender, and location.
-                        </li>
-                        <li>
-                            Keep your login credentials confidential.
-                        </li>
-                        <li>
-                            Notify us immediately if you suspect unauthorized use of your account.
-                        </li>
-                    </ul>
-                    You are responsible for all activity that occurs under your account.
-                </Term>
-                <Term heading="4. Prohibited Conduct">
-                    While using Matchmatical, you agree NOT to:
-                    <ul className="list-disc ml-8">
-                        <li>
-                            Impersonate another person or use fake profiles.
-
-                        </li>
-                        <li>
-                            Post or share unlawful, abusive, obscene, or harmful content.
-
-                        </li>
-                        <li>
-                            Harass, bully, or threaten other users.
-
-                        </li>
-                        <li>
-                            Use the app for commercial purposes without authorization.
-
-                        </li>
-                        <li>
-                            Access or attempt to access another user’s account.
-
-                        </li>
-                        <li>
-                            Use Matchmatical in a way that violates any applicable law or regulation.
-
-                        </li>
-                    </ul>
-                    Violation of these rules may result in suspension or termination of your account.
-                </Term>
-                <Term heading="5. Privacy">
-                    Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use,
-                    and protect your personal information.
-                </Term>
-                <Term heading="6. Compatibility Algorithm">
-                    Matchmatical uses a proprietary algorithm to calculate compatibility scores. While we strive to
-                    provide accurate matches, we do not guarantee the success or quality of any connection made through
-                    our platform.
-                </Term>
-                <Term heading="7. Termination">
-                    Matchmatical reserves the right to suspend or terminate your account at any time for violations of
-                    these terms or for any reason deemed necessary to maintain a safe platform. You may also terminate
-                    your account at any time through your profile settings.
-                </Term>
-                <Term heading="8. Changes to Terms">
-                    We may update these Terms of Service from time to time. If we make significant changes, we will
-                    notify you through the app or via email. Your continued use of Matchmatical after such changes
-                    indicates your acceptance of the updated terms.
-                </Term>
-                <Term heading="9. Contact Us">
-                    If you have questions about these Terms of Service, you can contact us at:
-                    <ul>
-                        <li>
-                            Matchmatical Support Team
-                        </li>
-                        <li>
-                            Email: [Insert Support Email]
-
-                        </li>
-                        <li>
-                            Address: [Insert Business Address]
-
-                        </li>
-                    </ul>
-
-                    By using Matchmatical, you acknowledge that you have read and agree to these Terms of Service.
-                    Thank you for being part of our community!
-                </Term>
-
+                        <Term heading="12. Termination">
+                            Matchmatical reserves the right to suspend or
+                            terminate your account at any time for violations of
+                            these terms or for any reason deemed necessary to
+                            maintain a safe platform. You may also terminate
+                            your account at any time through your profile
+                            settings.
+                        </Term>
+                        <Term heading="13. Changes to Terms">
+                            We may update these Terms of Service from time to
+                            time. If we make significant changes, we will notify
+                            you via email. Your continued use of Matchmatical
+                            after we notify you of such changes indicates your
+                            acceptance of the updated terms.
+                        </Term>
+                        <Term heading="14. Contact Us">
+                            If you have questions about these Terms of Service,
+                            you can contact us at: admin@matchmatical.com
+                        </Term>
+                    </div>
+                </div>
             </section>
-            <Footer/>
+            <Footer />
         </>
     );
 }

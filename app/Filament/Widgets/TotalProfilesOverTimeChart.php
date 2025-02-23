@@ -2,7 +2,11 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Answer;
+use App\Models\Profile;
 use Filament\Widgets\ChartWidget;
+use Flowframe\Trend\Trend;
+use Flowframe\Trend\TrendValue;
 
 class TotalProfilesOverTimeChart extends ChartWidget
 {
@@ -15,15 +19,22 @@ class TotalProfilesOverTimeChart extends ChartWidget
 
     protected function getData(): array
     {
+        $data = Trend::model(Profile::class)
+            ->between(
+                start: now()->startOfYear(),
+                end: now()->endOfYear(),
+            )
+            ->perMonth()
+            ->count();
+
         return [
             'datasets' => [
                 [
-                    'label' => 'Profiles',
-                    'data' => [0, 10, 5, 2, 21, 32, 45, 74, 65, 45, 77, 89],
-                    'fill' => 'start',
+                    'label' => 'Profiles over time',
+                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
-            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'labels' => $data->map(fn (TrendValue $value) => $value->date),
         ];
     }
 

@@ -1,0 +1,1 @@
+import{j as t}from"./app-sYFYH_vL.js";const a=({label:s,attribute:i,className:n})=>{const r=e=>typeof e!="string"||e.length===0?e:e.charAt(0).toUpperCase()+e.slice(1).toLowerCase();return t.jsxs("div",{className:"inline-block "+n,children:[t.jsx("div",{className:"text-bc-200",children:s}),t.jsx("div",{className:"text-bc-600 text-xl leading-6",children:r(i)})]})};export{a as P};

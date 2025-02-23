@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,10 +49,18 @@ class RegisteredUserController extends Controller
            'name' => $request->name,
         ]);
 
+        $admin = User::where('is_admin',1)->first();
+
+        Notification::make()
+            ->title("New Profile Registered")
+            ->body("$profile->name created an account on website.")
+            ->sendToDatabase($admin);
+
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('profile', absolute: false));
+        return redirect(route('on-boarding', absolute: false));
     }
 }

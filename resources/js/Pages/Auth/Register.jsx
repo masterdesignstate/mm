@@ -25,10 +25,10 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register"/>
 
-            <h1 className="text-4xl mb-0 mt-8 font-bold text-center uppercase">Register</h1>
-            <div className="lg:w-90 h-2">
+            <h1 className="text-4xl my-8 px-4 font-bold text-center uppercase">Register</h1>
+            <div className="w-[90%] max-w-96 lg:w-90 h-2 mx-auto">
             </div>
-            <form onSubmit={submit} className="w-full">
+            <form onSubmit={submit} className=" w-[90%] max-w-96 lg:w-90 mx-auto">
                 <div>
                     <InputLabel htmlFor="name" value="Name"/>
 
@@ -129,10 +129,7 @@ export default function Register() {
                     <Link href={route('tos')} className="mx-2 text-pink-400">
                         Terms of Service
                     </Link>
-                    and
-                    <Link href="#" className="ml-2 text-pink-400">
-                        Privacy Policy.
-                    </Link>
+
                 </div>
             </form>
         </GuestLayout>

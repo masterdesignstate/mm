@@ -45,4 +45,11 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI')
     ],
 
+    'distance_matrix_ai' => [
+        'api_key' => env('DISTANCE_MATRIX_AI_API_KEY'),
+    ],
+    'distance_matrix_google' => [
+        'api_key' => env('DISTANCE_MATRIX_GOOGLE_API_KEY'),
+    ]
+
 ];

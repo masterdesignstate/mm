@@ -11,7 +11,9 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('profile_id');
             $table->unsignedBigInteger('question_id');
-            $table->string('answer');
+            $table->json('answer');
+            $table->json('meta')->nullable();
+
             $table->timestamps();
         });
     }

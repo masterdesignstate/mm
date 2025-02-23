@@ -1,87 +1,150 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, useForm} from '@inertiajs/react';
-import {useState} from "react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head, router, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
 import {
     TableBody,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
-    Table
+    Table,
 } from "@/Components/ui/table.jsx";
-import {AddCircleIcon, CancelCircleIcon} from "@hugeicons/react";
-import {
-    Combobox,
-    ComboboxButton,
-    ComboboxInput,
-    ComboboxOption,
-    ComboboxOptions,
-    Select,
-    Textarea
-} from "@headlessui/react";
+import { AddCircleIcon, CancelCircleIcon } from "@hugeicons/react";
 import InputLabel from "@/Components/InputLabel.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputError from "@/Components/InputError.jsx";
 import TextArea from "@/Components/TextArea.jsx";
-import {Ray, ray} from "node-ray/web";
-import {clsx} from "clsx";
+import { ray, Ray } from "node-ray/web";
 import PageHead from "@/Components/Shared/PageHead.jsx";
+import Checkbox from "@/Components/Checkbox.jsx";
+import { MultiSelect } from "@/Components/ui/MultiSelect.jsx";
+import { toast } from "@/hooks/use-toast.js";
 
+Ray.useDefaultSettings();
 
-Ray.useDefaultSettings()
+export default function MyQuestions({ questions, tags }) {
 
-export default function MyQuestions({questions, tags}) {
-    const {data, setData, post, processing, errors, reset} = useForm({
-        question: "",
-        descriptor1: "",
-        descriptor2: "",
-        descriptor3: "",
-        tags: []
-    });
-    const [createQuestion, setCreateQuestion] = useState(false)
+    ray(tags).color("orange");
+
+    const desLabels = [1,3,5]
+    const { data, setData, post, processing, errors, setError, reset } =
+        useForm({
+            question: "",
+            answers: [{value:1,answer:""},{value:5,answer:""}],
+            q_tags: [],
+        });
+    const [createQuestion, setCreateQuestion] = useState(false);
     const [myQuestions, setMyQuestions] = useState(questions);
     const [lockDescriptor, setLockDescriptor] = useState(false);
     const [currentTags, setCurrentTags] = useState([]);
 
-    ray(questions)
-
     const submit = (e) => {
         e.preventDefault();
+        setData("q_tags", [...currentTags]);
 
-        post(route('my-questions-create'), {
-            onFinish: () => {
-                reset('question', 'descriptor1', 'descriptor2', 'descriptor3')
-                setCreateQuestion(false)
+
+        post(route("my-questions-create"), {
+            onSuccess: () => {
+                reset("question","answers","q_tags");
+                setCreateQuestion(false);
+                toast({
+                    title: "Success",
+                    description: "Successfully created",
+                })
+                router.reload({only:['questions']})
+                setMyQuestions(questions)
             },
         });
     };
 
+    const handleAnswerChange = (e, index) => {
+        let newAnswers = [...data.answers];
+
+        newAnswers[e.target.dataset.index] = {
+            answer: e.target.value,
+            value: e.target.dataset.value,
+        };
+        setData("answers", newAnswers);
+        setError("question", "");
+    };
+
+    const handleNew = () => {
+        if (data.answers.length >= 3 || data.answers.length <= 0) {
+            setError(
+                "question",
+                "Limit reached. Max 3 Items Allowed & Min 2 items required",
+            );
+        } else {
+            let ans = [...data.answers];
+            ans.push({
+                value: null,
+                answer: null,
+            });
+            setData("answers", ans);
+            setError("question", "");
+        }
+    };
+
+    const handleRemove = (e, answer) => {
+
+        const answers = [...data.answers];
+        const remaining = answers.filter((ans) => ans !== answer);
+
+
+
+        setData("answers", remaining);
+    };
+
+
+    const handleChecked = (e) => {
+        let tg = e.target.value;
+        if (e.target.checked) {
+            setCurrentTags([...currentTags, tg]);
+            setData("q_tags", [...currentTags]);
+        } else {
+            setCurrentTags(
+                currentTags.filter((item) => {
+                    return item !== tg;
+                }),
+            );
+        }
+        // }
+    };
+
     return (
-        <AuthenticatedLayout
+        <AuthenticatedLayout>
+            <Head title="My Questions" />
 
-        >
-            <Head title="My Questions"/>
+            <PageHead
+                heading="My Questions"
+                description="How does it work? Submit the questions that matter most to you! Others can answer them, helping to pinpoint people who truly align with you. It’s as simple as crafting a question, setting answer options, and adding tags to make your question easier to discover."
+            />
 
-            <PageHead heading="My Questions"
-                      description="How does it work? Create personalized questions to help your matches better connect with you. Add a question, choose tags, set answer options, and prioritize its importance. Your matches will answer these questions, making connections more meaningful and tailored to your preferences. "/>
-
-            {!createQuestion &&
-                <section className="max-w-7xl mx-auto my-16 px-4 lg:px-0">
-                    <div className="flex items-center max-w-5xl mx-auto justify-between">
+            {!createQuestion && (
+                <section className="mx-auto my-16 max-w-7xl px-4 lg:px-0">
+                    <div className="mx-auto flex max-w-5xl items-center justify-between">
                         <h2 className="text-xl font-bold">Questions</h2>
-                        <button className="text-gray-500" onClick={() => setCreateQuestion(true)}>
-                            <AddCircleIcon className="text-bpurple-500"
-                                           size={36} variant={"solid"}/>
+
+                        <button
+                            className="text-gray-500 dark:text-white"
+                            onClick={() => setCreateQuestion(true)}
+                        >
+                            <AddCircleIcon
+                                className="text-bpurple-500 dark:text-white"
+                                size={36}
+                                variant={"solid"}
+                            />
                         </button>
                     </div>
-                    <Table className="max-w-5xl mx-auto my-4">
+                    <Table className="mx-auto my-4 max-w-5xl">
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[100px]">Q#</TableHead>
                                 <TableHead>Questions Statement</TableHead>
-                                <TableHead>Tags</TableHead>
                                 <TableHead>Is Approved ?</TableHead>
-                                <TableHead className="text-right">Date of Creation</TableHead>
+                                <TableHead className="text-right">
+                                    Date of Creation
+                                </TableHead>
                                 {/*<TableHead className="text-right">Actions</TableHead>*/}
                             </TableRow>
                         </TableHeader>
@@ -91,17 +154,12 @@ export default function MyQuestions({questions, tags}) {
                                     <TableCell className="">
                                         {index + 1}
                                     </TableCell>
-                                    <TableCell className="">{question.question}</TableCell>
                                     <TableCell className="">
-                                        <ul className="flex space-x-2 items-center justify-center">
-                                            {question.tags.map((tag, index) => (
-                                                <li key={index}
-                                                    className="bg-bpurple-100 px-2 py-1 rounded-full">{tag}</li>
-                                            ))}
-                                        </ul>
+                                        {question.question}
                                     </TableCell>
                                     <TableCell className="">
-                                        {question.is_approved === null && "Not Yet"}
+                                        {question.is_approved === null &&
+                                            "Not Yet"}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         {question.human_date}
@@ -112,132 +170,181 @@ export default function MyQuestions({questions, tags}) {
                             ))}
                             {myQuestions.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="py-4 text-xl font-bold text-center text-gray-500">You have created no questions so far.</TableCell>
+                                    <TableCell
+                                        colSpan={5}
+                                        className="py-4 text-center text-xl font-bold text-gray-500"
+                                    >
+                                        You have created no questions so far.
+                                    </TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
-
                     </Table>
                 </section>
-            }
+            )}
 
-            {createQuestion &&
-
+            {createQuestion && (
                 <>
-                    <section className="max-w-5xl mx-auto my-16 px-4 lg:px-0">
+                    <section className="mx-auto my-16 max-w-5xl px-4 lg:px-0">
                         <div className="flex justify-end">
-                            <button className="ml-auto"
-                            onClick={() => setCreateQuestion(false)}>
-
-                                <CancelCircleIcon className="text-red-700" variant={'solid'} size={36}/>
+                            <button
+                                className="ml-auto"
+                                onClick={() => setCreateQuestion(false)}
+                            >
+                                <CancelCircleIcon
+                                    className="text-red-700"
+                                    variant={"solid"}
+                                    size={36}
+                                />
                             </button>
-
                         </div>
                         <form onSubmit={submit} className="w-full">
                             <div className="w-full">
-                                <InputLabel htmlFor="question" value="Question"/>
+                                <InputLabel
+                                    htmlFor="question"
+                                    value="Enter your question here (up to 160 chars)"
+                                />
 
-
-                                <TextArea
-                                    id="question"
-                                    name="question"
-                                    className="mt-1 block w-full"
-                                    autoComplete="question"
-                                    cols="20"
-                                    value={data.question}
-                                    onChange={(e) => setData('question', e.target.value)}
+                                <div>
+                                    <TextArea
+                                        id="question"
+                                        name="question"
+                                        className="mt-1 rounded-3xl resize-none block w-full"
+                                        autoComplete="question"
+                                        cols="20"
+                                        maxLength="160"
+                                        value={data.question}
+                                        onChange={(e) =>
+                                            setData("question", e.target.value)
+                                        }
+                                    ></TextArea>
+                                </div>
+                                <button
+                                    type="button"
+                                    className="mt-4 flex space-x-2"
+                                    onClick={() => handleNew()}
                                 >
-                                </TextArea>
-                                <InputError message={errors.question} className="mt-2"/>
-
-                            </div>
-
-
-                            <div className="mt-8 space-y-4">
-
-                                <div className="w-full">
-                                    <InputLabel htmlFor="descriptor1" value="Descriptor 1"/>
-
-                                    <TextInput
-                                        id="descriptor1"
-                                        type="text"
-                                        name="descriptor1"
-                                        value={data.descriptor1}
-                                        className="mt-1 block w-full"
-                                        autoComplete="descriptor1"
-                                        isFocused={true}
-                                        onChange={(e) => setData('descriptor1', e.target.value)}
+                                    <AddCircleIcon
+                                        variant={"solid"}
+                                        size={24}
                                     />
-
-                                    <InputError message={errors.descriptor1} className="mt-2"/>
-                                </div>
-
-                                <div className="w-full">
-                                    <InputLabel htmlFor="descriptor2" value="Descriptor 2"/>
-
-                                    <TextInput
-                                        id="descriptor2"
-                                        type="text"
-                                        disabled={lockDescriptor}
-                                        name="descriptor2"
-                                        placeholder="Optional"
-                                        value={data.descriptor2}
-                                        className="mt-1 block w-full"
-                                        autoComplete="descriptor2"
-                                        isFocused={true}
-                                        onChange={(e) => setData('descriptor2', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.descriptor2} className="mt-2"/>
-                                </div>
-
-                                <div className="w-full">
-                                    <InputLabel htmlFor="descriptor3" value="Descriptor 3"/>
-
-                                    <TextInput
-                                        id="descriptor3"
-                                        type="text"
-                                        name="descriptor3"
-                                        value={data.descriptor3}
-                                        className="mt-1 block w-full"
-                                        autoComplete="descriptor3"
-                                        isFocused={true}
-                                        onChange={(e) => setData('descriptor3', e.target.value)}
-                                    />
-
-                                    <InputError message={errors.descriptor3} className="mt-2"/>
-                                </div>
-
-                                <div className="w-full">
-
-
-                                    <InputError message={errors.descriptor3} className="mt-2"/>
-                                </div>
-
-                            </div>
-
-
-                            <div className="mt-8 flex items-center justify-between">
-                                <button className="bg-black text-white px-8 py-4 rounded-full" type="button">
-                                    Add Tag
+                                    <span>Add middle descriptor</span>
                                 </button>
+                                <InputError
+                                    message={errors.question}
+                                    className="mt-2"
+                                />
+                            </div>
 
-                                <button className="bg-bpurple-500 text-white px-8 py-4 rounded-full"
-                                        disabled={processing}
+                            {data.answers.map((answer, index) => (
+                                <div className="mt-8 space-y-4" key={index}>
+                                    <div className="w-full">
+                                        <InputLabel
+                                            htmlFor={"descriptor" + index}
+                                            value={"Descriptor " + desLabels[index]}
+                                        />
+
+                                        <div className="flex items-center justify-center space-x-2">
+                                            <TextInput
+                                                id={"answer" + index}
+                                                type="text"
+                                                name={"descriptor" + index}
+                                                value={answer.answer}
+                                                data-value={answer.value}
+                                                data-old={answer.answer}
+                                                data-index={index}
+                                                className="mt-1 block w-full"
+                                                autoComplete="descriptor1"
+                                                isFocused={true}
+                                                onChange={(e) => {
+                                                    handleAnswerChange(e);
+                                                }}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="disabled:text-gray-300 flex w-10 justify-center text-center text-red-700"
+                                                data-awr="12"
+                                                disabled={data.answers.length <= 2}
+                                                onClick={(e, index) => {
+                                                    handleRemove(e, answer);
+                                                }}
+                                            >
+                                                <CancelCircleIcon
+                                                    size={24}
+                                                    variant={"solid"}
+                                                />
+                                            </button>
+                                        </div>
+
+                                        <InputError
+                                            message={errors.answers}
+                                            className="mt-2"
+                                        />
+                                    </div>
+                                </div>
+                            ))}
+
+                            {/*<MultiSelect*/}
+                            {/*values={}*/}
+                            {/*defaultValue={tags}*/}
+                            {/*/>*/}
+
+                            <div className="mt-8">
+
+                                {/*<ul className="flex items-center justify-start space-x-4">*/}
+                                {/*    {tags.map((tag, index) => (*/}
+                                {/*        <li*/}
+                                {/*            key={index}*/}
+                                {/*            className="flex items-center"*/}
+                                {/*        >*/}
+                                {/*            <label className="flex items-center space-x-1">*/}
+                                {/*                <Checkbox*/}
+                                {/*                    name="tags[]"*/}
+                                {/*                    id={`tag${tag}`}*/}
+                                {/*                    value={tag}*/}
+                                {/*                    onChange={(e) =>*/}
+                                {/*                        handleChecked(e)*/}
+                                {/*                    }*/}
+                                {/*                />*/}
+                                {/*                <span>{tag}</span>*/}
+                                {/*            </label>*/}
+                                {/*        </li>*/}
+                                {/*    ))}*/}
+                                {/*</ul>*/}
+                                <MultiSelect
+                                    className="rounded-full h-auto py-4 border-gray-300 lg:w-[30%]"
+                                    options={tags}
+                                    onValueChange={setCurrentTags}
+                                    defaultValue={currentTags}
+                                    placeholder="Select Tags"
+                                    // variant="inverted"
+                                    // animation={2}
+                                    maxCount={3}
+                                />
+                                <InputError
+                                    message={errors.q_tags}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <div className="mt-8 flex items-center justify-between">
+                                {/*<button*/}
+                                {/*    className="rounded-full bg-black px-8 py-4 text-white"*/}
+                                {/*    type="button"*/}
+                                {/*>*/}
+                                {/*    Add Tag*/}
+                                {/*</button>*/}
+
+                                <button
+                                    className="rounded-full bg-bpurple-500 px-8 py-4 text-white"
+                                    disabled={processing}
                                 >
                                     Submit
                                 </button>
-
                             </div>
-
                         </form>
                     </section>
                 </>
-
-            }
-
-
+            )}
         </AuthenticatedLayout>
     );
 }
-

@@ -1,0 +1,1 @@
+import{j as n}from"./app-sYFYH_vL.js";function s({value:t,className:e="",children:r,...a}){return n.jsx("label",{...a,className:"block  font-medium text-bc-900 dark:text-gray-300 "+e,children:t||r})}export{s as I};

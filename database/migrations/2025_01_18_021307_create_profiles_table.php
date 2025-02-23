@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('uname')->nullable();
-            $table->boolean('age')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('zip')->nullable();
             $table->string('gender')->nullable();
             $table->string('commitment')->nullable();

@@ -20,7 +20,7 @@ export default forwardRef(function TextArea(
         <textarea
             {...props}
             className={
-                'rounded-full py-3 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500  ' +
+                ' dark:bg-bc-900 dark:text-white py-3 border-gray-300 shadow-sm focus:border-bc-600 focus:ring-bc-600  ' +
                 className
             }
             ref={localRef}

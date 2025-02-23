@@ -10,9 +10,7 @@ return new class extends Migration {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->text('question');
-            $table->text('descriptor1')->nullable();
-            $table->text('descriptor2')->nullable();
-            $table->text('descriptor3')->nullable();
+            $table->json('answers');
             $table->json('tags')->nullable();
             $table->json('meta')->nullable();
             $table->timestamps();

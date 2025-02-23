@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserOnlineStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Response as HttpResponse;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,16 +27,40 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
+    public function onlineUsers()
+    {
+        $users = User::all()->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'name' => $user->name,
+                'is_online' => $user->isOnline(),
+            ];
+        });
+
+        return response()->json($users);
+    }
+
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse | HttpResponse
     {
+
         $request->authenticate();
 
-        $request->session()->regenerate();
+//        if(Auth::user()->is_admin){
+//            return redirect()->route();
+//        }
 
-        return redirect()->intended(route('profile', absolute: false));
+        if (auth()->user()->is_admin) {
+            return Inertia::location(route('filament.admin.pages.dashboard'));
+        }
+
+
+        $request->session()->regenerate();
+        event(new UserOnlineStatus(Auth::user()));
+
+        return redirect()->intended(route('on-boarding', absolute: false));
     }
 
     /**
@@ -41,11 +68,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+
+        $user = Auth::user();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        event(new UserOnlineStatus($user));
 
         return redirect('/');
     }

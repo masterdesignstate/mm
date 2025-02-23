@@ -16,25 +16,32 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $admin_user = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password'),
-            'is_admin' => true
-        ]);
+//        $admin_user = User::factory()->create([
+//            'name' => 'Admin',
+//            'email' => 'admin@admin.com',
+//            'password' => bcrypt('password'),
+//            'is_admin' => true
+//        ]);
+//
+//        $test_user = User::factory()->create([
+//            'name' => 'Test',
+//            'email' => 'test@test.com',
+//            'password' => bcrypt('password'),
+//        ]);
+//
+//        Profile::factory()->create([
+//            'name' => 'Test',
+//            'user_id' => $test_user->id,
+//            'uname' => 'test'
+//        ]);
 
-        $test_user = User::factory()->create([
-            'name' => 'Test',
-            'email' => 'test@test.com',
-            'password' => bcrypt('password'),
-        ]);
 
-        Profile::factory()->create([
-            'name' => 'Test',
-            'user_id' => $test_user->id,
-        ]);
-
-
+        $this->call(UsersTableSeeder::class);
+        $this->call(ProfilesTableSeeder::class);
         $this->call(QuestionsTableSeeder::class);
+        $this->call(AnswersTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
+        $this->call(ChatMessagesTableSeeder::class);
+        $this->call(ProfileResponsesTableSeeder::class);
     }
 }
