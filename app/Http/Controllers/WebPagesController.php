@@ -291,9 +291,9 @@ class WebPagesController extends Controller
             $answer->answer = [...$answer->answer,"selfAnswer"=>$answer->answer["seekAnswer"]];
             $answer->save();
         }
-        if($question->meta['skip_seeking'] &&  $answer->answer["seekAnswer"]['value'] ?? null) {
-            $answer->answer = [...$answer->answer,"seekAnswer"=>$answer->answer["selfAnswer"]];
-        }
+//        if($question->meta['skip_seeking'] &&  $answer->answer["seekAnswer"]['value'] ?? null) {
+//            $answer->answer = [...$answer->answer,"seekAnswer"=>$answer->answer["selfAnswer"]];
+//        }
 
         if ($question->id === 1) {
             auth()->user()->profile->update(['commitment' => $answer->seeking_answer]);

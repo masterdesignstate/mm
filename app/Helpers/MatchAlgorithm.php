@@ -25,7 +25,7 @@ class MatchAlgorithm
             ->leftJoin("answers as seek", "answers.question_id", "=", "seek.question_id")
             ->where("answers.profile_id", $person1->id)
             ->where("seek.profile_id", $person2->id)
-            ->whereNot('answers.question_id', 1)
+//            ->whereNot('answers.question_id', 1)
             ->leftJoin("questions as q", "answers.question_id", "=", "q.id")
             ->select(
                 "answers.id",
@@ -65,12 +65,15 @@ class MatchAlgorithm
     public static function v2SingleAdj($answer): int
     {
         $self_seek_answer = json_decode($answer->sf_answer)->seekAnswer;
+        $self_self_answer = json_decode($answer->sf_answer)->selfAnswer;
+
         $seek_self_answer = json_decode($answer->sk_answer)->selfAnswer;
         $seek_seek_answer = json_decode($answer->sk_answer)->seekAnswer;
 
         $set = app(SystemSettings::class);
 
-        if ($self_seek_answer->value === 6 || $seek_seek_answer->value === 6) {
+        if ($self_seek_answer->value === 6 || $seek_self_answer->value === 6) {
+
 //            Upper * All
             $value = $set->upper_value * $set->all_value;
         } else {
@@ -98,11 +101,12 @@ class MatchAlgorithm
         $set = app(SystemSettings::class);
 
         $self_seek_answer = json_decode($answer->sf_answer)->seekAnswer;
+        $self_self_answer = json_decode($answer->sf_answer)->selfAnswer;
         $seek_self_answer = json_decode($answer->sk_answer)->selfAnswer;
         $seek_seek_answer = json_decode($answer->sk_answer)->seekAnswer;
 
 
-        if ($self_seek_answer->value === 6 || $seek_seek_answer->value === 6) {
+        if ($self_seek_answer->value === 6 || $seek_self_answer->value === 6) {
 //            Upper * All
             $value = $set->upper_value * $self_seek_answer->multiplier * $set->all_value;
         } else {

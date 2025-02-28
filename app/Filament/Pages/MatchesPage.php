@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Helpers\MatchAlgorithm;
 use App\Models\Answer;
 use App\Models\Profile;
 use App\Models\Question;
@@ -39,7 +40,6 @@ class MatchesPage extends Page implements HasForms, HasTable
     public $data = [];
 
     public $self;
-
     public $seek;
 
     public $persons1=[];
@@ -68,7 +68,17 @@ class MatchesPage extends Page implements HasForms, HasTable
             $this->result2 = $data[0];
         }
 
-        $this->final_result = round(pow(($this->result1 * $this->result2), 0.5));
+//        $this->final_result = round(pow(($this->result1 * $this->result2), 0.5));
+
+        $self = Profile::find($this->self);
+        $seek = Profile::find($this->seek);
+
+        ray($self,$seek);
+
+
+
+        $this->final_result = MatchAlgorithm::v2MatchOverall($self,$seek);
+
     }
 
     public function form(Form $form): Form
@@ -104,6 +114,16 @@ class MatchesPage extends Page implements HasForms, HasTable
     {
         $this->setEverything();
         $this->isResetButton = true;
+
+//        $self = Profile::find($this->self)->first();
+//        $seek = Profile::find($this->seek)->first();
+
+        ray($this->self,$this->seek);
+//        dd($this->self,$this->seek);
+
+        $this->final_result = MatchAlgorithm::v2MatchOverall($this->self,$this->seek);
+
+
 //        dd($this->data);
     }
 
@@ -135,37 +155,5 @@ class MatchesPage extends Page implements HasForms, HasTable
             ->bulkActions([]);
     }
 
-//    public function tableSeek(Table $tableSeek): Table
-//    {
-//        return $tableSeek
-//            ->query(
-//                Answer::query()
-//                    ->when($this->self?->id, function (Builder $query) {
-//                        $query
-//                            ->where('profile_id', $this->self->id);
-//                    })
-//                    ->with('question')
-//            )
-//            ->columns([
-//                TextColumn::make('Sr #')->rowIndex(),
-//                TextColumn::make('question.question'),
-//                TextColumn::make('seeking_answer')->label('Seeking Answer Value'),
-//                TextColumn::make('seek_multiplier')->label('Seek Multiplier'),
-//                TextColumn::make('self_answer')->label('Self Answer Value'),
-//                TextColumn::make('delta')->label('Delta'),
-//                TextColumn::make('adj')->label('Adj')->summarize([Summarizer::make()->using(fn()=>$this->selfTotalAdj)]),
-//                TextColumn::make('max')->label('Max')->summarize([Summarizer::make()->using(fn()=>$this->selfTotalMax)]),
-//            ])
-//
-//            ->paginated(false)
-//            ->filters([])
-//            ->actions([])
-//            ->bulkActions([]);
-//    }
-
-//    protected function getTableContentFooter(): ?View
-//    {
-//        return view('filament.pages.matches-table.footer', []);
-//    }
 
 }

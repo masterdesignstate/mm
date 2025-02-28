@@ -60,7 +60,7 @@ class SelfTable extends Component implements HasTable, HasForms
             ->leftJoin("answers as seek", "answers.question_id", "=", "seek.question_id")
             ->where("answers.profile_id", $this->self)
             ->where("seek.profile_id", $this->seek)
-            ->whereNot('answers.question_id', 1)
+//            ->whereNot('answers.question_id', 1)
             ->leftJoin("questions as q", "answers.question_id", "=", "q.id")
             ->select(
                 "answers.id",
@@ -116,11 +116,11 @@ class SelfTable extends Component implements HasTable, HasForms
                     ->state(function ($record) {
                         $set = app(SystemSettings::class);
 
-                        if(json_decode($record->sf_answer)->seekAnswer->value === 6){
+                        if(json_decode($record->sf_answer)->seekAnswer->value === 6 || json_decode($record->sk_answer)->selfAnswer->value === 6){
                            return $set->upper_value;
                        }
                        else if (isset(json_decode($record->sf_answer)->seekAnswer->value)) {
-                            return max((json_decode($record->sf_answer)?->seekAnswer?->value - json_decode($record->sk_answer)?->selfAnswer?->value), 0);
+                            return abs((json_decode($record->sf_answer)?->seekAnswer?->value - json_decode($record->sk_answer)?->selfAnswer?->value));
                         } else return 0;
                     }),
                 TextColumn::make('adj')->label('Adj')
@@ -150,9 +150,9 @@ class SelfTable extends Component implements HasTable, HasForms
     public function rendered($view, $html)
     {
 
-        $result = round($this->totAdj / $this->totMax * 100);
-        ray($this->totAdj,$this->totMax);
-        $this->dispatch('result', data: [$result, $this->self]);
+//        $result = round($this->totAdj / $this->totMax * 100);
+//        ray($this->totAdj,$this->totMax);
+//        $this->dispatch('result', data: [$result, $this->self]);
 
     }
 }
