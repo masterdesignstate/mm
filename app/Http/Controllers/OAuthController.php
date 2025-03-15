@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Models\User;
 use Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class OAuthController extends Controller
@@ -44,7 +45,7 @@ class OAuthController extends Controller
             }
         } catch (\Exception $e) {
 
-            dd($e->getMessage());
+            Log::info($e->getMessage());
         }
 
 
@@ -81,7 +82,8 @@ class OAuthController extends Controller
             }
         } catch (\Exception $e) {
 
-            dd($e->getMessage());
+            Log::info($e->getMessage());
+
         }
 
 
